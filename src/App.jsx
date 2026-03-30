@@ -6,7 +6,7 @@ import { Home } from './Page/Home'
 import { Add } from './Page/Add'
 import { Active } from './Page/Active'
 import { Complete } from './Page/Complete'
-import { TodoProvider } from './TodoContext'
+import { TodoProvider } from './Context/TodoContext'
 
 function App() {
   return (

@@ -12,6 +12,19 @@ export const TodoProvider = ({children}) => {
         localStorage.setItem('todos', JSON.stringify(todos));
     }, [todos]);
 
+    const addTodo = (task, deadline) => {
+        const newTodo = {
+            id: Date.now(), 
+            text: task,
+            isCompleted: false,
+            createdAt: new Date(),
+            deadline: new Date(deadline),
+            lastEditedAt: new Date(),
+            completedAt: null
+        }
+        setTodos([...todos, newTodo]);
+    }
+
     const deleteTodo = (id) => {
         setTodos(todos.filter(todo => todo.id != id));
     }
@@ -24,6 +37,15 @@ export const TodoProvider = ({children}) => {
         ))
     }
 
+    const editTodo = (id, task, deadline) => {
+        setTodos(prev =>
+            prev.map(todo =>
+                todo.id === id
+                    ? { ...todo, text: task, deadline: deadline, lastEditedAt: new Date()}
+                    : todo
+            )
+        );
+    }
 
     const activeTodos = todos.filter(todo => !todo.isCompleted);
     const completedTodos = todos.filter(todo => todo.isCompleted);
@@ -32,8 +54,10 @@ export const TodoProvider = ({children}) => {
         <TodoContext.Provider value={{
             todos,
             setTodos,
+            addTodo,
             deleteTodo,
-            completeTodo,  
+            completeTodo,
+            editTodo,
             activeTodos,
             completedTodos
         }}>

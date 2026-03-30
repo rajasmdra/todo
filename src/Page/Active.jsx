@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { TaskCard } from "../Element/TaskCard";
-import { useTodo } from "../TodoContext";
+import { useTodo } from "../Context/TodoContext";
+import { EditTask } from "../Element/EditTask";
 
 export const Active = () => {
 
-    const { todos, deleteTodo, completeTodo, activeTodos } = useTodo()
+    const { editTodo, deleteTodo, completeTodo, activeTodos } = useTodo();
+    const [editingTodo, setEditingTodo] = useState(null);
 
     return (
         <>
@@ -20,10 +22,17 @@ export const Active = () => {
                                 todo={todo} 
                                 onComplete={completeTodo}
                                 onDelete={deleteTodo}
+                                onEdit={setEditingTodo}
                             />
                         </li>
                     ))}
                 </ul>
+            )}
+            {editingTodo && (
+                <EditTask 
+                    todo={editingTodo}
+                    onClose={() => setEditingTodo(null)}
+                />
             )}
         </>
     )
