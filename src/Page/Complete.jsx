@@ -22,11 +22,11 @@ export const Complete = () => {
     }, [completedTodos, sortBy]);
 
     return (
-        <>
+        <div className="h-full flex flex-col">
             <div className="flex justify-between items-center flex-wrap">
                 <h1 className="text-3xl font-bold">Completed Task</h1>
                 <div className="flex flex-row flex-wrap gap-3 py-2 
-                    *:rounded-sm *:bg-gray-200 *:p-1">
+                    *:rounded-sm *:bg-gray-200 *:p-1 *:focus:outline-none *:cursor-pointer *:hover:bg-gray-300">
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                         <option value="" disabled>Sort By</option>
                         <option value="createdAt">Created At</option>
@@ -42,7 +42,10 @@ export const Complete = () => {
             </div>
             <p>Your Completed Task: {completedTodos.length}</p>
             {completedTodos.length === 0 ? (
-                <p>No Task Here</p>
+                <div className="flex justify-center items-center flex-col flex-1 text-center gap-2">
+                    <p className="font-bold text-4xl">There's No Task Here</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, esse.</p>
+                </div>
             ) : (
                 <ul>
                     {sortedTodos.map((todo) => (
@@ -56,6 +59,6 @@ export const Complete = () => {
                     ))}
                 </ul>
             )}
-        </>
+        </div>
     )
 }
