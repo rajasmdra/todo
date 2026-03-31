@@ -14,7 +14,7 @@ function App() {
       <TodoProvider>
         <HashRouter>
           <Navbar />
-          <div className='flex-1 p-5 overflow-x-hidden'>
+          <div className=' flex-1 pt-20 p-[5%] overflow-x-hidden'>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/add" element={<Add />} />

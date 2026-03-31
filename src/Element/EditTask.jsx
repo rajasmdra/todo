@@ -44,7 +44,7 @@ export const EditTask = ({todo, onClose}) => {
         <div className="fixed top-0 left-0 bg-black/50 z-[100] w-screen h-screen flex items-center justify-center">
             <div className="bg-white w-[80%] max-w-[600px] flex flex-col justify-center items-center px-5 py-3 gap-3 rounded-xl">
                 <h1 className="font-bold text-3xl">Edit Task</h1>
-                <form onSubmit={handleEditTodo} className="flex flex-col w-full gap-2">
+                <form onSubmit={handleEditTodo} className="flex flex-col w-full gap-3">
                     <input 
                         type="text" 
                         value={newTask}
@@ -63,7 +63,7 @@ export const EditTask = ({todo, onClose}) => {
                         <p className="text-sm">Last Edited at: {new Date(todo.lastEditedAt).toLocaleString("id-ID")}</p>
                         <p className={`text-sm m-0 p-0 ${validate ? "text-green-600" : "text-red-600"}`}>{message}</p>
                     </div>
-                    <div className="w-full flex justify-end gap-2">
+                    <div className="w-full flex justify-end gap-2 flex-wrap">
                         <button 
                             className="bg-green-600 text-white font-bold px-4 py-2 rounded-sm cursor-pointer hover:bg-green-700"
                             type="submit"

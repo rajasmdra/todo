@@ -47,9 +47,6 @@ export const TodoProvider = ({children}) => {
         );
     }
 
-    const activeTodos = todos.filter(todo => !todo.isCompleted);
-    const completedTodos = todos.filter(todo => todo.isCompleted);
-
     return (
         <TodoContext.Provider value={{
             todos,
@@ -58,8 +55,6 @@ export const TodoProvider = ({children}) => {
             deleteTodo,
             completeTodo,
             editTodo,
-            activeTodos,
-            completedTodos
         }}>
             {children}
         </TodoContext.Provider>
