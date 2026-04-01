@@ -21,6 +21,11 @@ export const Complete = () => {
         }
     }, [completedTodos, sortBy]);
 
+    const [searchInput, setSearchInput] = useState("");
+    const filteredTodos = sortedTodos.filter((todo) =>
+        todo.text.toLowerCase().startsWith(searchInput.toLowerCase())
+    );
+
     return (
         <div className="h-full flex flex-col">
             <div className="flex justify-between items-center flex-wrap">
@@ -38,6 +43,13 @@ export const Complete = () => {
                         <option value="ascending">Ascending (A-Z)</option>
                         <option value="descending">Descending (Z-A)</option>
                     </select>
+                    <input 
+                        type="search" 
+                        value={searchInput}
+                        placeholder="Search"
+                        className=""
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
                 </div>
             </div>
             <p>Your Completed Task: {completedTodos.length}</p>
@@ -48,7 +60,7 @@ export const Complete = () => {
                 </div>
             ) : (
                 <ul>
-                    {sortedTodos.map((todo) => (
+                    {filteredTodos.map((todo) => (
                         <li key={todo.id}>
                             <TaskCard 
                                 todo={todo} 
@@ -58,6 +70,12 @@ export const Complete = () => {
                         </li>
                     ))}
                 </ul>
+            )}
+            {filteredTodos.length === 0 && searchInput.trim() !== "" && (
+                <div className="flex justify-center items-center flex-col flex-1 text-center gap-2">
+                    <p className="font-bold text-4xl">There's No Task Here</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, esse.</p>
+                </div>
             )}
         </div>
     )

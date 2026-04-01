@@ -8,6 +8,7 @@ export const Active = () => {
     const { todos, deleteTodo, completeTodo } = useTodo();
     const activeTodos = todos.filter(todo => !todo.isCompleted);
     const [editingTodo, setEditingTodo] = useState(null);
+    const [searchInput, setSearchInput] = useState("")
 
     const [sortBy, setSortBy] = useState("");
     const [orderBy, setOrderBy] = useState("");
@@ -22,6 +23,11 @@ export const Active = () => {
             });
         }
     }, [activeTodos, sortBy]);
+
+    const filteredTodos = sortedTodos.filter((todo) =>
+        todo.text.toLowerCase().startsWith(searchInput.toLowerCase())
+    );
+
     
     return (
         <div className="h-full flex flex-col">
@@ -40,6 +46,13 @@ export const Active = () => {
                         <option value="ascending">Ascending (A-Z)</option>
                         <option value="descending">Descending (Z-A)</option>
                     </select>
+                    <input 
+                        type="search" 
+                        value={searchInput}
+                        placeholder="Search"
+                        className=""
+                        onChange={(e) => setSearchInput(e.target.value)}
+                    />
                 </div>
             </div>
             <p>Your Active Task: {activeTodos.length}</p>
@@ -50,7 +63,7 @@ export const Active = () => {
                 </div>
             ) : (
                 <ul>
-                    {sortedTodos.map((todo) => (
+                    {filteredTodos.map((todo) => (
                         <li key={todo.id}>
                             <TaskCard 
                                 todo={todo} 
@@ -61,6 +74,12 @@ export const Active = () => {
                         </li>
                     ))}
                 </ul>
+            )}
+            {filteredTodos.length === 0 && searchInput.trim() !== "" && (
+                <div className="flex justify-center items-center flex-col flex-1 text-center gap-3">
+                    <p className="font-bold text-4xl">Not a Single Task Found</p>
+                    <p>Sorry, we couldn't find a match. Try checking your spelling.</p>
+                </div>
             )}
             {editingTodo && (
                 <EditTask 
