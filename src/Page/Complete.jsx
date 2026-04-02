@@ -9,14 +9,21 @@ export const Complete = () => {
     
     const [sortBy, setSortBy] = useState("");
     const [orderBy, setOrderBy] = useState("");
+
+    const handleOrder = () => {
+        setOrderBy(!orderBy);
+    }
+
     const sortedTodos = useMemo(() => {
-        if (orderBy === "descending") {
+        if (orderBy) {
             return [...completedTodos].sort((a, b) => {
-                return new Date(b[sortBy]) - new Date(a[sortBy]);
+                if (sortBy === "text") return b[sortBy].localeCompare(a[sortBy]);
+                else  return new Date(b[sortBy]) - new Date(a[sortBy]);
             });
         } else {
             return [...completedTodos].sort((a, b) => {
-                return new Date(a[sortBy]) - new Date(b[sortBy]);
+                if (sortBy === "text") return a[sortBy].localeCompare(b[sortBy]);
+                else  return new Date(a[sortBy]) - new Date(b[sortBy]);
             });
         }
     }, [completedTodos, sortBy]);
@@ -34,20 +41,21 @@ export const Complete = () => {
                     *:rounded-sm *:bg-gray-200 *:p-1 *:focus:outline-none *:cursor-pointer *:hover:bg-gray-300">
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
                         <option value="" disabled>Sort By</option>
+                        <option value="text">Name</option>
                         <option value="createdAt">Created At</option>
                         <option value="completedAt">Completed At</option>
                         <option value="deadline">Deadline</option>
                     </select>
-                    <select value={orderBy} onChange={(e => setOrderBy(e.target.value))}>
-                        <option value="" disabled>Order By</option>
-                        <option value="ascending">Ascending (A-Z)</option>
-                        <option value="descending">Descending (Z-A)</option>
-                    </select>
-                    <input 
+                    <button
+                        className="*:px-2"
+                        onClick={handleOrder}
+                    >
+                        {orderBy ? <span>&uarr;</span> : <span>&darr;</span>}
+                    </button>
+                    <input
                         type="search" 
                         value={searchInput}
                         placeholder="Search"
-                        className=""
                         onChange={(e) => setSearchInput(e.target.value)}
                     />
                 </div>
