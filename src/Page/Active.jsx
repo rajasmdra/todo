@@ -18,14 +18,14 @@ export const Active = () => {
     }
 
     const sortedTodos = useMemo(() => {
-        if (orderBy === "descending") {
+        if (orderBy) {
             return [...activeTodos].sort((a, b) => {
                 if (sortBy === "text") return b[sortBy].localeCompare(a[sortBy]);
-                else  return new Date(b[sortBy]) - new Date(b[sortBy]);
+                else  return new Date(b[sortBy]) - new Date(a[sortBy]);
             });
         } else {
             return [...activeTodos].sort((a, b) => {
-                if (sortBy === "text") return a[sortBy].localeCompare(a[sortBy]);
+                if (sortBy === "text") return a[sortBy].localeCompare(b[sortBy]);
                 else  return new Date(a[sortBy]) - new Date(b[sortBy]);
             });
         }
@@ -35,7 +35,6 @@ export const Active = () => {
         todo.text.toLowerCase().startsWith(searchInput.toLowerCase())
     );
 
-    
     return (
         <div className="h-full flex flex-col">
             <div className="flex justify-between items-center flex-wrap">

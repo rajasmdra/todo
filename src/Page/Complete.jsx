@@ -9,6 +9,7 @@ export const Complete = () => {
     
     const [sortBy, setSortBy] = useState("");
     const [orderBy, setOrderBy] = useState("");
+    const [searchInput, setSearchInput] = useState("");
 
     const handleOrder = () => {
         setOrderBy(!orderBy);
@@ -28,7 +29,6 @@ export const Complete = () => {
         }
     }, [completedTodos, sortBy]);
 
-    const [searchInput, setSearchInput] = useState("");
     const filteredTodos = sortedTodos.filter((todo) =>
         todo.text.toLowerCase().startsWith(searchInput.toLowerCase())
     );
